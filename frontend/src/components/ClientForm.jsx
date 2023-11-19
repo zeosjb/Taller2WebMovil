@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { UseSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createClient } from "../features/clients/clientSlice"
 
 function ClientForm() {
   const [names, setNames] = useState("");
@@ -8,8 +9,17 @@ function ClientForm() {
   const [email, setEmail] = useState("");
   const [points, setPoints] = useState("");
 
+  const dispatch = useDispatch()
+
   const onSubmit = (e) => {
     e.preventDefault();
+
+    dispatch(createClient({names, lastNames, dni, email, points}))
+    setNames("")
+    setLastNames("")
+    setDni("")
+    setEmail("")
+    setPoints("")
   };
 
   return (
@@ -54,6 +64,7 @@ function ClientForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+        </div>
         <div className="form-group">
           <label htmlFor="points">Puntos del cliente</label>
           <input
