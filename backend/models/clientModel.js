@@ -11,11 +11,13 @@ const clientSchema = mongoose.Schema({
     },
     dni: {
         type: String,
-        required: [true, 'RUT o DNI obligatorio']
+        required: [true, 'RUT o DNI obligatorio'],
+        unique: [true, 'Error al ingresar contraseña'],
     },
     email: {
         type: String,
-        required: [true, 'Correo electrónico obligatorio']
+        required: [true, 'Correo electrónico obligatorio'],
+        unique: [true, 'Error al ingresar correo'],
     },
     points: {
         type: Number,
