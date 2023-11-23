@@ -8,6 +8,20 @@ const getClients = asyncHandler(async (req, res) => {
 })
 
 const setClient = asyncHandler(async (req, res) => {
+    const { dni, email } = req.body;
+
+    const existingDni = await Client.findOne({ dni });
+    if (existingDni) {
+        res.status(400).json({ error: "El RUT o DNI ya está registrado." });
+        return;
+    }
+
+    const existingEmail = await Client.findOne({ email });
+    if (existingEmail) {
+        res.status(400).json({ error: "El correo electrónico ya está registrado." });
+        return;
+    }
+
     const client = await Client.create({
         names: req.body.names,
         lastNames: req.body.lastNames,
@@ -20,6 +34,20 @@ const setClient = asyncHandler(async (req, res) => {
 })
 
 const updateClient = asyncHandler(async (req, res) => {
+    const { dni, email } = req.body;
+
+    const existingDni = await Client.findOne({ dni, _id: { $ne: req.params.id } });
+    if (existingDni) {
+        res.status(400).json({ error: "El RUT o DNI ya está registrado." });
+        return;
+    }
+
+    const existingEmail = await Client.findOne({ email, _id: { $ne: req.params.id } });
+    if (existingEmail) {
+        res.status(400).json({ error: "El correo electrónico ya está registrado." });
+        return;
+    }
+
     const client = await Client.findById(req.params.id)
 
     if(!client){

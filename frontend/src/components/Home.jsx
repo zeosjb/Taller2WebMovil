@@ -21,7 +21,9 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import { clientSchema } from "../schemas/clientSchema";
 import { Formik, Field, ErrorMessage, Form } from "formik";
-import "../index.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import "../styles/styles.css";
 
 const API_URL = "http://localhost:5000/api/clients";
 const clientsPerPage = 6;
@@ -32,6 +34,8 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingClient, setEditingClient] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+  const [deletingClientId, setDeletingClientId] = useState(null);
 
   const token = localStorage.getItem("token");
 
@@ -61,7 +65,9 @@ const Home = () => {
       });
       fetchData();
       handleModalClose();
+      toast.success("Cliente añadido con éxito");
     } catch (error) {
+      toast.error(error.response.data.error);
       console.error("Error adding client:", error);
     }
   };
@@ -75,7 +81,9 @@ const Home = () => {
       });
       fetchData();
       handleModalClose();
+      toast.success("Cliente editado con éxito");
     } catch (error) {
+      toast.error(error.response.data.error);
       console.error("Error editing client:", error);
     }
   };
@@ -107,12 +115,19 @@ const Home = () => {
     setModalOpen(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleConfirmDelete = async () => {
     try {
-      await deleteClient(id);
+      await deleteClient(deletingClientId);
+      setDeletingClientId(null);
+      setConfirmDeleteModalOpen(false);
     } catch (error) {
       console.error("Error deleting client:", error);
     }
+  };
+
+  const handleDelete = (id) => {
+    setDeletingClientId(id);
+    setConfirmDeleteModalOpen(true);
   };
 
   const handleModalClose = () => {
@@ -220,57 +235,77 @@ const Home = () => {
                 onSubmit={(values) => handleModalSubmit(values)}
               >
                 <Form>
-                  <TextField
+                  <Field
                     className="modal-input"
+                    style={{ marginBottom: 10 }}
                     label="Nombres"
                     name="names"
-                    as={Field}
+                    type="text"
+                    as={TextField}
                   />
                   <ErrorMessage
+                    style={{ marginBottom: 10 }}
                     name="names"
                     component="div"
                     className="error"
                   />
 
-                  <TextField
+                  <Field
                     className="modal-input"
+                    style={{ marginBottom: 10 }}
                     label="Apellidos"
                     name="lastNames"
-                    as={Field}
+                    type="text"
+                    as={TextField}
                   />
                   <ErrorMessage
+                    style={{ marginBottom: 10 }}
                     name="lastNames"
                     component="div"
                     className="error"
                   />
 
-                  <TextField
+                  <Field
                     className="modal-input"
+                    style={{ marginBottom: 10 }}
                     label="RUT o DNI"
                     name="dni"
-                    as={Field}
-                  />
-                  <ErrorMessage name="dni" component="div" className="error" />
-
-                  <TextField
-                    className="modal-input"
-                    label="Correo electrónico"
-                    name="email"
-                    as={Field}
+                    type="text"
+                    as={TextField}
+                    disabled={!!(editingClient && editingClient.dni)}
                   />
                   <ErrorMessage
+                    style={{ marginBottom: 10 }}
+                    name="dni"
+                    component="div"
+                    className="error"
+                  />
+
+                  <Field
+                    className="modal-input"
+                    style={{ marginBottom: 10 }}
+                    label="Correo electrónico"
+                    name="email"
+                    type="text"
+                    as={TextField}
+                  />
+                  <ErrorMessage
+                    style={{ marginBottom: 10 }}
                     name="email"
                     component="div"
                     className="error"
                   />
 
-                  <TextField
+                  <Field
                     className="modal-input"
+                    style={{ marginBottom: 10 }}
                     label="Puntos"
                     name="points"
-                    as={Field}
+                    type="text"
+                    as={TextField}
                   />
                   <ErrorMessage
+                    style={{ marginBottom: 10 }}
                     name="points"
                     component="div"
                     className="error"
@@ -281,6 +316,33 @@ const Home = () => {
                   </Button>
                 </Form>
               </Formik>
+            </div>
+          </div>
+        </Modal>
+        <Modal
+          open={confirmDeleteModalOpen}
+          onClose={() => setConfirmDeleteModalOpen(false)}
+        >
+          <div className="modal-background">
+            <div className="modal-container">
+              <span
+                className="modal-close-button"
+                onClick={() => setConfirmDeleteModalOpen(false)}
+              >
+                X
+              </span>
+              <p className="delete-paragraph">
+                ¿Está seguro de que desea eliminar este cliente?
+              </p>
+              <Button className="modal-button" onClick={handleConfirmDelete}>
+                Sí, eliminar
+              </Button>
+              <Button
+                className="modal-button"
+                onClick={() => setConfirmDeleteModalOpen(false)}
+              >
+                Cancelar
+              </Button>
             </div>
           </div>
         </Modal>
