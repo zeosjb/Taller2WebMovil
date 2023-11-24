@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 
+/**
+ * Se define el esquema para los clientes:
+ * Con los campos de "Nombres", "Apellidos", "RUT o DNI", "Correo" y "Puntos" 
+ */
 const clientSchema = mongoose.Schema({
     names: {
         type: String,

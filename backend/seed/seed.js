@@ -5,6 +5,10 @@ const Admin = require('../models/adminModel');
 const dotenv = require('dotenv');
 dotenv.config();
 
+/**
+ * La función `seedAdmin` es una función asíncrona que crea un nuevo usuario administrador con una contraseña
+ * cifrada y lo inserta en la base de datos.
+ */
 async function seedAdmin() {
   try {
     const adminData = {
@@ -25,6 +29,9 @@ async function seedAdmin() {
   }
 }
 
+/**
+ * La función `seedClients` inserta los datos semilla de clientes a la base de datos.
+ */
 async function seedClients() {
   try {
     const clientData = [
@@ -192,8 +199,11 @@ async function seedClients() {
   }
 }
 
-console.log(process.env.MONGO_URI)
-
+/**
+ * El código está estableciendo una conexión a una base de datos MongoDB utilizando la variable de entorno
+ * `MONGO_URI`. Una vez que se establece la conexión, llama de forma asíncrona a las funciones `seedAdmin()`
+ * `seedClients()` utilizando `Promise.all()`. Estas funciones insertan datos en la base de datos. 
+ */ 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     return Promise.all([seedAdmin(), seedClients()]);

@@ -2,6 +2,11 @@ const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 const Admin = require('../models/adminModel')
 
+/**
+ * La función `protect` es una función de middleware que se utiliza para proteger rutas en una aplicación
+ * Express. Verifica la presencia de un JWT (Token Web JSON) en las cabeceras de la solicitud y verifica su
+ * autenticidad utilizando la biblioteca `jsonwebtoken`.
+ */
 const protect = asyncHandler(async (req, res, next) => {
     let token 
 

@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
+/* The code is exporting a configuration object for the Vite build tool. */
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],

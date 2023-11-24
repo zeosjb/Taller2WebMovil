@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 
+/** 
+ * El código define el esquema para Admin, que especifica dos campos:
+ * "Credencial" y "Contraseña".
+ */ 
 const adminSchema = mongoose.Schema({
     credential: {
         type: String,

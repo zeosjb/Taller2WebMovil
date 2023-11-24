@@ -2,6 +2,12 @@ const asyncHandler = require('express-async-handler')
 
 const Client = require('../models/clientModel')
 
+/**
+ * La función `validateClientData` se utiliza para validar los datos de un cliente y devuelve un array de errores
+ * si falla alguna validación.
+ * @param data - El parámetro `data` es un objeto que contiene los datos del cliente.
+ * @returns La función `validateClientData` devuelve un array de mensajes de error.
+ */
 const validateClientData = (data) => {
     const errors = [];
   
@@ -28,11 +34,19 @@ const validateClientData = (data) => {
     return errors;
   };
 
+/**
+ * La función `getClients` es una función que utiliza el middleware `asyncHandler` para manejar operaciones
+ * asíncronas.
+ */
 const getClients = asyncHandler(async (req, res) => {
     const clients = await Client.find()
     res.status(200).json(clients)
 })
 
+/**
+ * La función `setClient` es una función asíncrona que maneja la creación de un nuevo cliente. Utiliza el
+ * middleware `asyncHandler` para gestionar operaciones asíncronas.
+ */
 const setClient = asyncHandler(async (req, res) => {
     const validationErrors = validateClientData(req.body);
 
@@ -66,6 +80,10 @@ const setClient = asyncHandler(async (req, res) => {
     res.status(200).json(client)
 })
 
+/**
+ * La función `updateClient` es una función asíncrona que maneja la actualización de la información de un
+ * cliente. Utiliza el middleware `asyncHandler` para gestionar operaciones asíncronas.
+ */
 const updateClient = asyncHandler(async (req, res) => {
     const validationErrors = validateClientData(req.body);
 
@@ -100,6 +118,10 @@ const updateClient = asyncHandler(async (req, res) => {
     res.status(200).json(updateClient)
 })
 
+/**
+ * La función `deleteClient` es una función asíncrona que maneja la eliminación de un cliente. Utiliza el
+ * middleware `asyncHandler` para gestionar operaciones asíncronas.
+ */
 const deleteClient = asyncHandler(async (req, res) => {
     const client = await Client.findById(req.params.id)
     

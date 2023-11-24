@@ -1,5 +1,8 @@
 import * as yup from "yup";
 
+/**
+ * Definición del esquema de cliente usando validaciones de la libreria de Yup.
+ */
 export const clientSchema = yup.object().shape({
   names: yup.string().required("Los nombres son obligatorios"),
   lastNames: yup.string().required("Los apellidos son obligatorio"),

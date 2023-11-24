@@ -14,6 +14,10 @@ const Login = () => {
 
   const [token, setToken] = useState(localStorage.getItem("token"));
 
+  /**
+   * El efecto `useEffect` se utiliza para verificar si hay un token almacenado en el almacenamiento
+   * local al cargar el componente y redirigir al usuario a la página de inicio si ya ha iniciado sesión.
+   */
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
@@ -23,6 +27,13 @@ const Login = () => {
     }
   }, [navigate]);
 
+  /**
+   * La función `handleLogin` realiza una solicitud de inicio de sesión a la API del servidor utilizando
+   * el método POST. Toma un objeto `values` como parámetro, que contiene las credenciales de inicio de
+   * sesión del administrador.
+   *
+   * @param {Object} values - Objeto que contiene las credenciales de inicio de sesión del administrador.
+   */
   const handleLogin = (values) => {
     axios
       .post(`${API_URL}/admin/login`, values)
@@ -60,7 +71,12 @@ const Login = () => {
             <Form>
               <div>
                 <label htmlFor="credential">Credenciales</label>
-                <Field className="login-input" type="text" id="credential" name="credential" />
+                <Field
+                  className="login-input"
+                  type="text"
+                  id="credential"
+                  name="credential"
+                />
                 <ErrorMessage
                   name="credential"
                   component="div"
@@ -69,7 +85,12 @@ const Login = () => {
               </div>
               <div>
                 <label htmlFor="password">Contraseña</label>
-                <Field className="login-input" type="password" id="password" name="password" />
+                <Field
+                  className="login-input"
+                  type="password"
+                  id="password"
+                  name="password"
+                />
                 <ErrorMessage
                   name="password"
                   component="div"
