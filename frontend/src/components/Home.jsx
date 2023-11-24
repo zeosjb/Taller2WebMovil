@@ -54,7 +54,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_URL}`, {
+      const response = await axios.get(`${API_URL}/clients`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -67,7 +67,7 @@ const Home = () => {
 
   const addClient = async (client) => {
     try {
-      await axios.post(`${API_URL}`, client, {
+      await axios.post(`${API_URL}/clients`, client, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -83,7 +83,7 @@ const Home = () => {
 
   const editClient = async (id, client) => {
     try {
-      await axios.put(`${API_URL}/${id}`, client, {
+      await axios.put(`${API_URL}/clients/${id}`, client, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -99,7 +99,7 @@ const Home = () => {
 
   const deleteClient = async (id) => {
     try {
-      await axios.delete(`${API_URL}/${id}`, {
+      await axios.delete(`${API_URL}/clients/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

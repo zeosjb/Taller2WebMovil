@@ -70,7 +70,7 @@ Descripción corta del proyecto.
     ```bash
     npm start
 
-## Uso API
+## Uso Frontend
 
 1. **Navegar hacia la API:**
 
