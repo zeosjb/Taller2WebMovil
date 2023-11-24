@@ -1,6 +1,6 @@
 # Taller Introducción al desarrollo web/móvil
 
-Descripción corta del proyecto.
+Este es la aplicación del taller: Dumbo Supermercados, para empezar hay 2 carpetas separadas, en ellas se encuentran el backend y el frontend.
 
 ## Requisitos previos
 
