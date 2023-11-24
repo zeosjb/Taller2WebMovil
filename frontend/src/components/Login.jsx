@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/styles.css";
 import { adminSchema } from "../schemas/adminSchema";
 import { Formik, Field, ErrorMessage, Form } from "formik";
@@ -7,12 +7,25 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
+const API_URL = process.env.API_URL;
+
 const Login = () => {
   const navigate = useNavigate();
 
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+
+    if (storedToken) {
+      navigate("/home");
+    }
+  }, [navigate]);
+
   const handleLogin = (values) => {
     axios
-      .post("http://localhost:5000/api/admin/login", values)
+      .post(`${API_URL}/admin/login`, values)
       .then((response) => {
         if (response.status === 200) {
           const token = response.data.token;
@@ -33,8 +46,8 @@ const Login = () => {
 
   return (
     <div className="background">
-      <div className="login-container">
-        <div>
+      <div>
+        <div className="login-container">
           <h3>Iniciar sesión</h3>
           <Formik
             initialValues={{

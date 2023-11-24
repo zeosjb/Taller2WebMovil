@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Modal,
   IconButton,
@@ -21,12 +22,12 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import { clientSchema } from "../schemas/clientSchema";
 import { Formik, Field, ErrorMessage, Form } from "formik";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../styles/styles.css";
 
-const API_URL = "http://localhost:5000/api/clients";
-const clientsPerPage = 6;
+const API_URL = process.env.API_URL;
+const clientsPerPage = 5;
 
 const Home = () => {
   const [clients, setClients] = useState([]);
@@ -36,12 +37,20 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
   const [deletingClientId, setDeletingClientId] = useState(null);
+  const navigate = useNavigate();
 
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+
+    if (!token) {
+      navigate("/");
+    }
+
     fetchData();
-  }, []);
+  }, [token, navigate]);
 
   const fetchData = async () => {
     try {

@@ -2,12 +2,45 @@ const asyncHandler = require('express-async-handler')
 
 const Client = require('../models/clientModel')
 
+const validateClientData = (data) => {
+    const errors = [];
+  
+    if (!data.names) {
+      errors.push("Los nombres son obligatorios");
+    }
+  
+    if (!data.lastNames) {
+      errors.push("Los apellidos son obligatorios");
+    }
+  
+    if (!data.dni || !/^[0-9]{7,10}-[0-9A-Za-z]$/.test(data.dni)) {
+      errors.push("El RUT o DNI no es válido");
+    }
+  
+    if (!data.email || !/\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+/.test(data.email)) {
+      errors.push("El correo electrónico no es válido");
+    }
+  
+    if (typeof data.points !== "number" || !Number.isInteger(data.points) || data.points < 0) {
+      errors.push("Los puntos deben ser un número positivo");
+    }
+  
+    return errors;
+  };
+
 const getClients = asyncHandler(async (req, res) => {
     const clients = await Client.find()
     res.status(200).json(clients)
 })
 
 const setClient = asyncHandler(async (req, res) => {
+    const validationErrors = validateClientData(req.body);
+
+    if (validationErrors.length > 0) {
+        res.status(400).json({ errors: validationErrors });
+        return;
+    }
+
     const { dni, email } = req.body;
 
     const existingDni = await Client.findOne({ dni });
@@ -34,6 +67,13 @@ const setClient = asyncHandler(async (req, res) => {
 })
 
 const updateClient = asyncHandler(async (req, res) => {
+    const validationErrors = validateClientData(req.body);
+
+    if (validationErrors.length > 0) {
+        res.status(400).json({ errors: validationErrors });
+        return;
+    }
+
     const { dni, email } = req.body;
 
     const existingDni = await Client.findOne({ dni, _id: { $ne: req.params.id } });

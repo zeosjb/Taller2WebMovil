@@ -16,7 +16,6 @@ function RoutesApp() {
       <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Login />} />
-          <Route path="/Login" element={<Login />} />
           {token ? (
             <Route path="/home" element={<Home />} />
           ) : (
