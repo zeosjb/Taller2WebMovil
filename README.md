@@ -5,7 +5,7 @@ Descripción corta del proyecto.
 ## Requisitos previos
 
 1. **Node.js:**
-    Asegúrate de tener instalado [Node.js](https://nodejs.org/) en tu máquina.
+    #### Asegúrate de tener instalado [Node.js](https://nodejs.org/) en tu máquina.
 
 2. **Creación de cluster de MongoDB:**
     #### Dirigete hacia la página de [MongoDB](https://www.mongodb.com/es).
