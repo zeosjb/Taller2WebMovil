@@ -8,10 +8,10 @@ Descripción corta del proyecto.
     Asegúrate de tener instalado [Node.js](https://nodejs.org/) en tu máquina.
 
 2. **Creación de cluster de MongoDB:**
-    # Dirigete hacia la página de MongoDB [MongoDB](https://www.mongodb.com/es).
-    # Después de iniciar sesión, crea un nuevo proyecto y un clúster en la consola de MongoDB Atlas. Sigue las instrucciones proporcionadas en el proceso de creación.
-    # Configura las reglas de seguridad para permitir el acceso al clúster. Asegúrate de configurar la IP desde la que se accederá y establece las credenciales necesarias.
-    # Obtén la cadena de conexión del clúster desde MongoDB Atlas. Esta cadena se utilizará en la aplicación backend para conectarse a la base de datos.
+    #### Dirigete hacia la página de MongoDB [MongoDB](https://www.mongodb.com/es).
+    #### Después de iniciar sesión, crea un nuevo proyecto y un clúster en la consola de MongoDB Atlas. Sigue las instrucciones proporcionadas en el proceso de creación.
+    #### Configura las reglas de seguridad para permitir el acceso al clúster. Asegúrate de configurar la IP desde la que se accederá y establece las credenciales necesarias.
+    #### Obtén la cadena de conexión del clúster desde MongoDB Atlas. Esta cadena se utilizará en la aplicación backend para conectarse a la base de datos.
 
 ## Instalación del backend
 
