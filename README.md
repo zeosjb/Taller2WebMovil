@@ -56,7 +56,7 @@ Este es la aplicación del taller: Dumbo Supermercados, para empezar hay 2 carpe
 
 9. **Crea un archivo .env:**
 
-    Crea un archivo .env siguiendo las indicaciones del .env.example
+    Crea un archivo .env siguiendo las indicaciones del .env.example, para la ruta de la API seguir el ejemplo: "http://localhost:Puerto/api", ya que es la ruta base de la aplicación.
 
 ## Uso API
 
